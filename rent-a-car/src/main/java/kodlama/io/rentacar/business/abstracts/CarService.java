@@ -15,6 +15,8 @@ import java.util.List;
 
 public interface CarService {
     List<GetAllCarResponse> getAll();
+
+  //  List<GetAllCarResponse> getByState(String state);
     GetCarResponse getById(int id);
     CreateCarResponse add(CreateCarRequest request);
     UpdateCarResponse update(int id,UpdateCarRequest request);

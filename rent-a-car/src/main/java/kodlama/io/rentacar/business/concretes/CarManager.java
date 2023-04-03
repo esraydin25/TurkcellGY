@@ -29,6 +29,15 @@ public class CarManager implements CarService {
                 map(car -> mapper.map(car,GetAllCarResponse.class)).collect(Collectors.toList());
         return responses;
     }
+/*
+    @Override
+    public List<GetAllCarResponse> getByState(String state) {
+        getAll();
+
+
+        return null;
+    }
+*/
 
     @Override
     public GetCarResponse getById(int id) {
@@ -42,9 +51,10 @@ public class CarManager implements CarService {
     public CreateCarResponse add(CreateCarRequest request) {
         checkIfCarExistsByPlate(request.getPlate());
         Car car=mapper.map(request,Car.class);
+
         car.setId(0);
-        repository.save(car);
-        CreateCarResponse response=mapper.map(car,CreateCarResponse.class);
+        Car createdCar=repository.save(car);
+        CreateCarResponse response=mapper.map(createdCar,CreateCarResponse.class);
         return response;
     }
 
@@ -53,8 +63,8 @@ public class CarManager implements CarService {
         checkIfCarExists(id);
         Car car=mapper.map(request,Car.class);
         car.setId(id);
-        repository.save(car);
-        UpdateCarResponse response=mapper.map(car,UpdateCarResponse.class);
+        Car createdCar= repository.save(car);
+        UpdateCarResponse response=mapper.map(createdCar,UpdateCarResponse.class);
         return response;
     }
 
