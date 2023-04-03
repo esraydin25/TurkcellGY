@@ -34,7 +34,7 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public GetCategoryResponse getById(int id) {
-
+        checkIfCategoryExistsById(id);
         Category category=repository.findById(id).orElseThrow();
         GetCategoryResponse response=mapper.map(category,GetCategoryResponse.class);
         return response;
@@ -42,21 +42,41 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public CreateCategoryResponse add(CreateCategoryRequest request) {
+        checkIfCategoryExistsByName(request.getName());
         Category category=mapper.map(request,Category.class);
         category.setId(0);
-        CreateCategoryResponse response=mapper.map(category,CreateCategoryResponse.class);
+        Category createdCategory=repository.save(category);
+        CreateCategoryResponse response=mapper.map(createdCategory,CreateCategoryResponse.class);
         return response;
     }
 
     @Override
     public UpdateCategoryResponse update(int id, UpdateCategoryRequest request) {
+        checkIfCategoryExistsById(id);
+        Category category=mapper.map(request,Category.class);
+        category.setId(id);
+        Category updateCategory=repository.save(category);
+        UpdateCategoryResponse response=mapper.map(updateCategory,UpdateCategoryResponse.class);
 
-        return null;
+        return response;
     }
 
     @Override
     public void delete(int id) {
-         repository.deleteById(id);
+        checkIfCategoryExistsById(id);
+        repository.deleteById(id);
+    }
+
+    private void  checkIfCategoryExistsById(int id){
+        if(!repository.existsById(id)){
+           throw new RuntimeException("id bulunamadı.");
+        }
+    }
+
+    private void checkIfCategoryExistsByName(String name){
+        if(repository.existsByNameIgnoreCase(name)){
+            throw  new RuntimeException("Böyle bir categori mevcuttur.");
+        }
     }
 
 }
