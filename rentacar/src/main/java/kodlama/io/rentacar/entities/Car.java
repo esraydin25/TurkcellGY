@@ -22,6 +22,12 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int modelYear;
+
+
+
+
+
+    
     private String plate;
     @Enumerated(EnumType.STRING)
     private State state;
