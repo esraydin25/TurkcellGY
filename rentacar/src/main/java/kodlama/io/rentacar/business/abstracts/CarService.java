@@ -1,0 +1,24 @@
+package kodlama.io.rentacar.business.abstracts;
+
+import kodlama.io.rentacar.business.dto.requests.create.CreateCarRequest;
+import kodlama.io.rentacar.business.dto.requests.update.UpdateCarRequest;
+import kodlama.io.rentacar.business.dto.responses.create.CreateCarResponse;
+import kodlama.io.rentacar.business.dto.responses.get.car.GetAllCarResponse;
+import kodlama.io.rentacar.business.dto.responses.get.car.GetCarResponse;
+import kodlama.io.rentacar.business.dto.responses.update.UpdateCarResponse;
+import kodlama.io.rentacar.entities.enums.State;
+
+import java.util.List;
+
+
+public interface CarService {
+    List<GetAllCarResponse> getAll(boolean choose);
+
+    GetCarResponse getById(int id);
+    CreateCarResponse add(CreateCarRequest request);
+    UpdateCarResponse update(int id,UpdateCarRequest request);
+    void delete(int id);
+
+    void changeState(int carId,State state);
+
+}
