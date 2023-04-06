@@ -11,4 +11,8 @@ public interface CarRepository extends JpaRepository<Car,Integer> {
     boolean  existsByPlateIgnoreCase(String plate);
     List<Car> findAllByStateIsNot(State state);
 
+
+
+
+    
 }
