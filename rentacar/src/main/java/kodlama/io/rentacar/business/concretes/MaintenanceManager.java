@@ -1,26 +1,27 @@
+
 package kodlama.io.rentacar.business.concretes;
 
-import kodlama.io.rentacar.business.abstracts.CarService;
-import kodlama.io.rentacar.business.abstracts.MaintenanceService;
-import kodlama.io.rentacar.business.dto.requests.create.CreateMaintenanceRequest;
-import kodlama.io.rentacar.business.dto.requests.update.UpdateMaintenanceRequest;
-import kodlama.io.rentacar.business.dto.responses.create.CreateMaintenanceResponse;
-import kodlama.io.rentacar.business.dto.responses.get.car.GetCarResponse;
-import kodlama.io.rentacar.business.dto.responses.get.maintenance.GetAllMaintenancesResponse;
-import kodlama.io.rentacar.business.dto.responses.get.maintenance.GetMaintenanceResponse;
-import kodlama.io.rentacar.business.dto.responses.update.UpdateMaintenanceResponse;
-import kodlama.io.rentacar.entities.Car;
-import kodlama.io.rentacar.entities.Maintenance;
-import kodlama.io.rentacar.entities.enums.State;
-import kodlama.io.rentacar.repository.MaintenanceRepository;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
+        import kodlama.io.rentacar.business.abstracts.CarService;
+        import kodlama.io.rentacar.business.abstracts.MaintenanceService;
+        import kodlama.io.rentacar.business.dto.requests.create.CreateMaintenanceRequest;
+        import kodlama.io.rentacar.business.dto.requests.update.UpdateMaintenanceRequest;
+        import kodlama.io.rentacar.business.dto.responses.create.CreateMaintenanceResponse;
+        import kodlama.io.rentacar.business.dto.responses.get.car.GetCarResponse;
+        import kodlama.io.rentacar.business.dto.responses.get.maintenance.GetAllMaintenancesResponse;
+        import kodlama.io.rentacar.business.dto.responses.get.maintenance.GetMaintenanceResponse;
+        import kodlama.io.rentacar.business.dto.responses.update.UpdateMaintenanceResponse;
+        import kodlama.io.rentacar.entities.Car;
+        import kodlama.io.rentacar.entities.Maintenance;
+        import kodlama.io.rentacar.entities.enums.State;
+        import kodlama.io.rentacar.repository.MaintenanceRepository;
+        import lombok.AllArgsConstructor;
+        import org.modelmapper.ModelMapper;
+        import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+        import java.time.LocalDate;
+        import java.time.LocalDateTime;
+        import java.util.List;
+        import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -50,7 +51,7 @@ public class MaintenanceManager implements MaintenanceService {
         maintenanceRepository.save(maintenance);
         carService.changeState(car_id,State.AVAILABLE);//araba bakımdan cıktı
 
-         GetMaintenanceResponse response=mapper.map(maintenance,GetMaintenanceResponse.class);
+        GetMaintenanceResponse response=mapper.map(maintenance,GetMaintenanceResponse.class);
 
 
         return response;
@@ -88,29 +89,29 @@ public class MaintenanceManager implements MaintenanceService {
         return response;
     }
 
+
     @Override
     public UpdateMaintenanceResponse update(int id, UpdateMaintenanceRequest request) {
         checkIfMaintenanceExistsById(id);
-        Maintenance maintenance=mapper.map(request,Maintenance.class);
+        Maintenance maintenance = mapper.map(request, Maintenance.class);
         maintenance.setId(id);
         maintenanceRepository.save(maintenance);
-
-        UpdateMaintenanceResponse response=mapper.map(maintenance,UpdateMaintenanceResponse.class);
-
+        UpdateMaintenanceResponse response = mapper.map(maintenance, UpdateMaintenanceResponse.class);
 
         return response;
     }
 
     @Override
     public void delete(int id) {
-       checkIfMaintenanceExistsById(id);
-       maintenanceRepository.deleteById(id);
+        checkIfMaintenanceExistsById(id);
+        maintenanceRepository.deleteById(id);
     }
     void checkIfMaintenanceExistsById(int id){
         if(!maintenanceRepository.existsById(id)){
             throw new RuntimeException("maintenance not found");
         }
     }
+
     void checkIfCarInMaintenance(CreateMaintenanceRequest request)
     {
 
