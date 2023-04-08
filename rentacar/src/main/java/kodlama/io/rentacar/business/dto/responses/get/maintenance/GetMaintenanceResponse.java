@@ -17,5 +17,5 @@ public class GetMaintenanceResponse {
     private LocalDate startMaintenance;
     private LocalDate endMaintenance;
     private boolean isCompleted;
-    private int car_id;
+    private int carId;
 }

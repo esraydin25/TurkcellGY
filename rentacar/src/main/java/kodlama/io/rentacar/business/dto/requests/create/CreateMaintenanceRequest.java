@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateMaintenanceRequest {
-    private int car_id;
+    private int carId;
     private String information;
 
 

@@ -31,8 +31,6 @@ public class Car {
     @JoinColumn(name="model_id")
     private Model model;
 
-
-
     @OneToMany(mappedBy = "car")
     private List<Maintenance> maintenances;
 
