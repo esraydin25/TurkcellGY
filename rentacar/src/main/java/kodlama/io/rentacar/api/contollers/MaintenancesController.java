@@ -42,8 +42,8 @@ public class MaintenancesController {
         return service.add(request);
 
     }
-    @PutMapping("/return/{car_id}")
-    public GetMaintenanceResponse returnCarFromMaintenance(@PathVariable int car_id){
+    @PutMapping("/return")
+    public GetMaintenanceResponse returnCarFromMaintenance(@RequestParam int car_id){
             return service.returnCarFromMaintenance(car_id);
     }
 

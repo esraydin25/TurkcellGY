@@ -28,13 +28,11 @@ public class Maintenance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String information;
-
     private boolean isCompleted;// true:bakım bitti ,false:bakımda
     @CreatedDate
     private LocalDateTime startMaintenance;
     @LastModifiedDate
     private LocalDateTime endMaintenance;
-
 
     @ManyToOne
     @JoinColumn(name="car_id")
