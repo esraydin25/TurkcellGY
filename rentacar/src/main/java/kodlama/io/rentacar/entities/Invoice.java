@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,20 +13,19 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="rentals")
-public class Rental {
+@Table(name = "invoices")
+public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String plate;
+    private String cardHolder;
+    private String modelName;
+    private String brandName;
+    private int modelYear;
     private double dailyPrice;
     private int rentedForDays;
     private double totalPrice;
-    private LocalDateTime startDate;
-
-    @ManyToOne
-    @JoinColumn(name ="car_id")
-    private Car car;
-
-
+    private LocalDateTime rentedAte;
 
 }

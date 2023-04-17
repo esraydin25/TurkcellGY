@@ -8,7 +8,8 @@ import kodlama.io.rentacar.business.dto.responses.create.CreatePaymentResponse;
 import kodlama.io.rentacar.business.dto.responses.get.payment.GetAllPaymentsResponse;
 import kodlama.io.rentacar.business.dto.responses.get.payment.GetPaymentResponse;
 import kodlama.io.rentacar.business.dto.responses.update.UpdatePaymentResponse;
-import kodlama.io.rentacar.core.dto.CreateRentalPaymentRequest;
+import kodlama.io.rentacar.business.rules.PaymentBusinessRules;
+import kodlama.io.rentacar.common.dto.CreateRentalPaymentRequest;
 import kodlama.io.rentacar.entities.Payment;
 import kodlama.io.rentacar.repository.PaymentRepository;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class PaymentManager implements PaymentService {
     private final PaymentRepository repository;
     private final ModelMapper mapper;
     private final PosService posService;
+    private final PaymentBusinessRules rules;
 
     @Override
     public List<GetAllPaymentsResponse> getAll() {
@@ -37,7 +39,7 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public GetPaymentResponse getById(int id) {
-        checkIfPaymentExists(id);
+        rules.checkIfPaymentExists(id);
         Payment payment=repository.findById(id).orElseThrow();
         GetPaymentResponse response=mapper.map(payment,GetPaymentResponse.class);
 
@@ -46,7 +48,7 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public CreatePaymentResponse add(CreatePaymentRequest request) {
-        checkIfCardExists(request);
+        rules.checkIfCardExists(request);
         Payment payment=mapper.map(request,Payment.class);
         payment.setId(0);
         repository.save(payment);
@@ -58,7 +60,7 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public UpdatePaymentResponse update(int id, UpdatePaymentRequest request) {
-        checkIfPaymentExists(id);
+        rules.checkIfPaymentExists(id);
         Payment payment=mapper.map(request,Payment.class);
         payment.setId(id);
         repository.save(payment);
@@ -69,45 +71,24 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public void delete(int id) {
-        checkIfPaymentExists(id);
+        rules.checkIfPaymentExists(id);
         repository.deleteById(id);
     }
 
     @Override
     public void processRentalPayment(CreateRentalPaymentRequest request) {
-        checkIfPaymentIsValid(request);
+        rules.checkIfPaymentIsValid(request);
         Payment payment=repository.findByCardNumber(request.getCardNumber());
-        checkIfBalanceIsEnough(request.getPrice(),payment.getBalance());
+        rules.checkIfBalanceIsEnough(request.getPrice(),payment.getBalance());
         posService.pay(); // fake pos service
         payment.setBalance(payment.getBalance()-request.getPrice());
         repository.save(payment);// payment update
 
     }
-    private void checkIfPaymentExists(int id){
-        if(!repository.existsById(id)){
-            throw new RuntimeException("Ödeme bulunamadı");
-        }
-    }
 
-    private void checkIfPaymentIsValid(CreateRentalPaymentRequest request) { //Geçerli Kart kontrolü
-        if(!repository.existsByCardNumberAndCardHolderAndCardExpirationYearAndCardExpirationMonthAndCardCvv(
-                request.getCardNumber(),
-                request.getCardHolder(),
-                request.getCardExpirationYear(),
-                request.getCardExpirationMonth(),
-                request.getCardCvv())){
-            throw  new RuntimeException("Kart bilgileriniz hatalı");
-        }
-    }
-    private void checkIfBalanceIsEnough(double price,double balance){
-        if(balance<price){
-            throw new RuntimeException("bakiye yetersiz");
-        }
-    }
-    private void checkIfCardExists(CreatePaymentRequest request) { // Kart numarasının unique kontrolü
-        if(repository.existsByCardNumber(request.getCardNumber())){
-            throw new RuntimeException("Kart numarası kayıtlı");
-        }
-    }
+
+
+
+
 
 }

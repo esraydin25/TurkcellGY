@@ -18,6 +18,7 @@ public class GetCarResponse {
     private State state;
     private double dailyPrice;
 
-   // private String modelName;
+    private String modelName;
+    private String modelBrandName;
 
 }
