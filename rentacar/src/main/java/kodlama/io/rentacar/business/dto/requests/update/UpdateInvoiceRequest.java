@@ -25,13 +25,10 @@ public class UpdateInvoiceRequest {
     private String brandName;
     @NotNull
     private String plate;
-    @NotNull(message = "Alan boş geçilemez")
-    @Min(value = 1999)
+    @Min(value = 1996)
     private int modelYear;
-    @NotNull(message = "Alan boş geçilemez")
     @Min(0)
     private double dailyPrice;
-    @NotNull(message = "Alan boş geçilemez")
     @Min(0)
     private int rentedForDays;
     private LocalDateTime rentedAte;

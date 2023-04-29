@@ -17,21 +17,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CreateInvoiceRequest {
 
-    @NotBlank(message = "Alan boş geçilemez")
+    @NotBlank
     private String cardHolder;
-    @NotBlank(message = "Alan boş geçilemez")
+    @NotBlank
     private String modelName;
-    @NotBlank(message = "Alan boş geçilemez")
+    @NotBlank
     private String brandName;
     @NotNull
     private String plate;
-    @NotNull(message = "Alan boş geçilemez")
-    @Min(value = 1999)
+    @Min(value = 1996)
     private int modelYear;
-    @NotNull(message = "Alan boş geçilemez")
     @Min(0)
     private double dailyPrice;
-    @NotNull(message = "Alan boş geçilemez")
     @Min(0)
     private int rentedForDays;
     private LocalDateTime rentedAte;

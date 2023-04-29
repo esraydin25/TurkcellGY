@@ -12,6 +12,8 @@ import kodlama.io.rentacar.entities.Brand;
 import kodlama.io.rentacar.repository.BrandRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class BrandManager implements BrandService {
     private final BrandBusinessRules rules;
 
     @Override
+    @Cacheable(value="brand_list")
     public List<GetAllBrandsResponse> getAll() {
         List<Brand> brands=repository.findAll();
         List<GetAllBrandsResponse> responses=brands.
@@ -42,6 +45,7 @@ public class BrandManager implements BrandService {
     }
 
     @Override
+    @CacheEvict(value = "brand_list",allEntries = true)
     public CreateBrandResponse add(CreateBrandReguest request) {
         rules.checkIfBrandExistsByName(request.getName());
          Brand brand=mapper.map(request,Brand.class);
@@ -53,6 +57,7 @@ public class BrandManager implements BrandService {
     }
 
     @Override
+    @CacheEvict(value = "brand_list",allEntries = true)
     public UpdateBrandResponse update(int id, UpdateBrandRequest reguest) {
         rules.checkIfBrandExistsById(id);
         Brand brand=mapper.map(reguest,Brand.class);
@@ -64,6 +69,7 @@ public class BrandManager implements BrandService {
     }
 
     @Override
+    @CacheEvict(value = "brand_list",allEntries = true)
     public void delete(int id) {
         rules.checkIfBrandExistsById(id);
          repository.deleteById(id);

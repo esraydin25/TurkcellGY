@@ -17,21 +17,19 @@ import org.hibernate.validator.constraints.Length;
 public class PaymentRequest {// base class
 @NotBlank(message="Kart numarası alanı boş bırakılamaz.")
 @Length(min =16,max=16,message = "Kart numarası 16 haneden oluşmalıdır.")
-    private String cardNumber;
+private String cardNumber;
 
 @NotBlank(message = "Kart sahibi boş bırakılamaz")
 @Length(min=5,message = "Kart sahibi bilgisi en az 5 haneden oluşmalı")
-    private String cardHolder;
-@NotNull(message = "Kart son kullanma yılı boş bırakılamaz")
-@Min(value = 2023,message = "Kart son kullanma yılı geçersiz")
-    private int cardExpirationYear;//minimum 2023
+private String cardHolder;
 
-@NotNull(message="Kart son kullanma ayı boş bırakılamaz")
+@Min(value = 2023,message = "Kart son kullanma yılı geçersiz")
+private int cardExpirationYear;//minimum 2023
 @Min(value = 1)
 @Max(value = 12)
-    private int cardExpirationMonth;// 1 ile 12
+private int cardExpirationMonth;// 1 ile 12
 @NotBlank(message = "Kart cvv boş bırakılamaz")
 @Length(min=3,max=3)
-    private String cardCvv;//3 haneli olmalı
+private String cardCvv;//3 haneli olmalı
 
 }

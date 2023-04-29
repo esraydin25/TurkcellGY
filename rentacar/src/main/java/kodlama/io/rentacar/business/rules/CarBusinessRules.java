@@ -21,5 +21,4 @@ public class CarBusinessRules {
         }
     }
 
-    // plaka kontrolunu yap
 }

@@ -12,7 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateModelRequest {
-
     private int brandId;
     private String name;
 

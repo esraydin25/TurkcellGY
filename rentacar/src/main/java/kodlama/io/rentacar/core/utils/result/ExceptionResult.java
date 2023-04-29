@@ -4,17 +4,18 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
-public class ExceptionResult<T extends Exception> {
+public class ExceptionResult<T> {
+    private LocalDateTime timestamp;
     private String type;
-    private String message;
+    private T message;
 
-    public ExceptionResult(Class<T> type, String message) {
-        this.type = convertToUpperCaseWithUnderscores(type.getSimpleName());
+    public ExceptionResult(String type, T message) {
+        this.timestamp=LocalDateTime.now();
+        this.type = type;
         this.message = message;
-    }
-    private String convertToUpperCaseWithUnderscores(String camelCaseString) {
-        return camelCaseString.replaceAll("(.)(\\p{Upper})", "$1_$2").toUpperCase();
     }
 }
