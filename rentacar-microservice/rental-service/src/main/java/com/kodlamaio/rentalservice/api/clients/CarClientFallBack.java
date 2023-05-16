@@ -11,13 +11,9 @@ import java.util.UUID;
 @Component
 public class CarClientFallBack implements CarClient{
 
-    @Retry(name = "inventory-connection")
     @Override
     public ClientResponse checkIfCarAvailable(UUID carId) {
         log.info("INVENTORY SERVICE IS DOWN!");
         throw  new RuntimeException("INVENTORY SERVICE IS DOWN");
     }
-
-
-
 }

@@ -32,6 +32,6 @@ resilience4j:
   retry:
     instances:
       inventorySearch:
-        maxRetryAttempts: 5
+        maxRetryAttempts: 20
         waitDuration: 10s
 
