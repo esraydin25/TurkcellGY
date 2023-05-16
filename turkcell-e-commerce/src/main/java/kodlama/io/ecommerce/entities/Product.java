@@ -28,12 +28,15 @@ public class Product {
     private int quantity;
     private double unitPrice;
     private String description;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 
 
     @JsonManagedReference
-    @ManyToMany( mappedBy = "products",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany( mappedBy = "products",
+            fetch=FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<Category> categories=new HashSet<>();
 
 

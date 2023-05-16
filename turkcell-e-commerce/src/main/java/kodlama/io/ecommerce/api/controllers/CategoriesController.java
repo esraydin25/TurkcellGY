@@ -1,12 +1,9 @@
 package kodlama.io.ecommerce.api.controllers;
 
 import kodlama.io.ecommerce.business.abstracts.CategoryService;
-import kodlama.io.ecommerce.business.dto.request.create.CreateCategoryRequest;
-import kodlama.io.ecommerce.business.dto.request.create.CreateProductRequest;
-import kodlama.io.ecommerce.business.dto.request.update.UpdateCategoryRequest;
-import kodlama.io.ecommerce.business.dto.request.update.UpdateProductRequest;
+import kodlama.io.ecommerce.business.dto.response.create.request.create.CreateCategoryRequest;
+import kodlama.io.ecommerce.business.dto.response.create.request.update.UpdateCategoryRequest;
 import kodlama.io.ecommerce.business.dto.response.create.CreateCategoryResponse;
-import kodlama.io.ecommerce.business.dto.response.create.CreateProductResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetAllCategoriesResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetAllProductsResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetCategoryResponse;

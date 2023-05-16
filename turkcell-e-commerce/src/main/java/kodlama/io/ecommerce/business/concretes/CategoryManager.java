@@ -1,12 +1,13 @@
 package kodlama.io.ecommerce.business.concretes;
 
 import kodlama.io.ecommerce.business.abstracts.CategoryService;
-import kodlama.io.ecommerce.business.dto.request.create.CreateCategoryRequest;
-import kodlama.io.ecommerce.business.dto.request.update.UpdateCategoryRequest;
+import kodlama.io.ecommerce.business.dto.response.create.request.create.CreateCategoryRequest;
+import kodlama.io.ecommerce.business.dto.response.create.request.update.UpdateCategoryRequest;
 import kodlama.io.ecommerce.business.dto.response.create.CreateCategoryResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetAllCategoriesResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetCategoryResponse;
 import kodlama.io.ecommerce.business.dto.response.update.UpdateCategoryResponse;
+import kodlama.io.ecommerce.business.rules.CategoryBusinessRules;
 import kodlama.io.ecommerce.entities.Category;
 import kodlama.io.ecommerce.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class CategoryManager implements CategoryService {
 
     private final CategoryRepository repository;
+    private final CategoryBusinessRules rules;
     private final ModelMapper mapper;
     @Override
     public List<GetAllCategoriesResponse> getAll() {
@@ -34,7 +36,7 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public GetCategoryResponse getById(int id) {
-        checkIfCategoryExistsById(id);
+        rules.checkIfCategoryExistsById(id);
         Category category=repository.findById(id).orElseThrow();
         GetCategoryResponse response=mapper.map(category,GetCategoryResponse.class);
         return response;
@@ -42,7 +44,7 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public CreateCategoryResponse add(CreateCategoryRequest request) {
-        checkIfCategoryExistsByName(request.getName());
+        rules.checkIfCategoryExistsByName(request.getName());
         Category category=mapper.map(request,Category.class);
         category.setId(0);
         Category createdCategory=repository.save(category);
@@ -52,7 +54,7 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public UpdateCategoryResponse update(int id, UpdateCategoryRequest request) {
-        checkIfCategoryExistsById(id);
+        rules.checkIfCategoryExistsById(id);
         Category category=mapper.map(request,Category.class);
         category.setId(id);
         Category updateCategory=repository.save(category);
@@ -63,20 +65,10 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public void delete(int id) {
-        checkIfCategoryExistsById(id);
+       rules.checkIfCategoryExistsById(id);
         repository.deleteById(id);
     }
 
-    private void  checkIfCategoryExistsById(int id){
-        if(!repository.existsById(id)){
-           throw new RuntimeException("id bulunamadı.");
-        }
-    }
 
-    private void checkIfCategoryExistsByName(String name){
-        if(repository.existsByNameIgnoreCase(name)){
-            throw  new RuntimeException("Böyle bir categori mevcuttur.");
-        }
-    }
 
 }

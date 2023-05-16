@@ -1,7 +1,7 @@
 package kodlama.io.ecommerce.business.abstracts;
 
-import kodlama.io.ecommerce.business.dto.request.create.CreateProductRequest;
-import kodlama.io.ecommerce.business.dto.request.update.UpdateProductRequest;
+import kodlama.io.ecommerce.business.dto.response.create.request.create.CreateProductRequest;
+import kodlama.io.ecommerce.business.dto.response.create.request.update.UpdateProductRequest;
 import kodlama.io.ecommerce.business.dto.response.create.CreateProductResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetAllProductsResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetProductResponse;
