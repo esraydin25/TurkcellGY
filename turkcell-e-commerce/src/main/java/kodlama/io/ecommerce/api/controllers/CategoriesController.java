@@ -1,15 +1,14 @@
 package kodlama.io.ecommerce.api.controllers;
 
+import jakarta.validation.Valid;
 import kodlama.io.ecommerce.business.abstracts.CategoryService;
-import kodlama.io.ecommerce.business.dto.response.create.request.create.CreateCategoryRequest;
-import kodlama.io.ecommerce.business.dto.response.create.request.update.UpdateCategoryRequest;
+import kodlama.io.ecommerce.business.dto.request.create.CreateCategoryRequest;
+
+import kodlama.io.ecommerce.business.dto.request.update.UpdateCategoryRequest;
 import kodlama.io.ecommerce.business.dto.response.create.CreateCategoryResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetAllCategoriesResponse;
-import kodlama.io.ecommerce.business.dto.response.get.GetAllProductsResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetCategoryResponse;
-import kodlama.io.ecommerce.business.dto.response.get.GetProductResponse;
 import kodlama.io.ecommerce.business.dto.response.update.UpdateCategoryResponse;
-import kodlama.io.ecommerce.business.dto.response.update.UpdateProductResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +33,12 @@ public class CategoriesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CreateCategoryResponse add(@RequestBody CreateCategoryRequest request) {
+    public CreateCategoryResponse add(@Valid @RequestBody CreateCategoryRequest request) {
         return service.add(request);
     }
 
     @PutMapping("/{id}")
-    public UpdateCategoryResponse update(@PathVariable int id, @RequestBody UpdateCategoryRequest request){
+    public UpdateCategoryResponse update(@PathVariable int id,@Valid @RequestBody UpdateCategoryRequest request){
         return service.update(id,request);
 
     }

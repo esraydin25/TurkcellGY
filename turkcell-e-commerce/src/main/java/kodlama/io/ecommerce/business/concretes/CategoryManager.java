@@ -1,8 +1,9 @@
 package kodlama.io.ecommerce.business.concretes;
 
 import kodlama.io.ecommerce.business.abstracts.CategoryService;
-import kodlama.io.ecommerce.business.dto.response.create.request.create.CreateCategoryRequest;
-import kodlama.io.ecommerce.business.dto.response.create.request.update.UpdateCategoryRequest;
+import kodlama.io.ecommerce.business.dto.request.create.CreateCategoryRequest;
+
+import kodlama.io.ecommerce.business.dto.request.update.UpdateCategoryRequest;
 import kodlama.io.ecommerce.business.dto.response.create.CreateCategoryResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetAllCategoriesResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetCategoryResponse;
@@ -65,7 +66,7 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public void delete(int id) {
-       rules.checkIfCategoryExistsById(id);
+        rules.checkIfCategoryExistsById(id);
         repository.deleteById(id);
     }
 

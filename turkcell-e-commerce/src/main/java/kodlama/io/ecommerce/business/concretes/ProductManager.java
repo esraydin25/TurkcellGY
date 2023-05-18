@@ -1,8 +1,9 @@
 package kodlama.io.ecommerce.business.concretes;
 
 import kodlama.io.ecommerce.business.abstracts.ProductService;
-import kodlama.io.ecommerce.business.dto.response.create.request.create.CreateProductRequest;
-import kodlama.io.ecommerce.business.dto.response.create.request.update.UpdateProductRequest;
+import kodlama.io.ecommerce.business.dto.request.create.CreateProductRequest;
+
+import kodlama.io.ecommerce.business.dto.request.update.UpdateProductRequest;
 import kodlama.io.ecommerce.business.dto.response.create.CreateProductResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetAllProductsResponse;
 import kodlama.io.ecommerce.business.dto.response.get.GetProductResponse;
@@ -29,14 +30,21 @@ public class ProductManager implements ProductService {
     private final ProductBusinessRules rules;
 
     @Override
-    public List<GetAllProductsResponse> getAll() {
-        List<Product> products=repository.findAll();
+    public List<GetAllProductsResponse> getAll(boolean includeStatus) {
+        List<Product> products=filterProductsByStatus(includeStatus);
         List<GetAllProductsResponse> responses=products.stream().
                 map(product -> mapper.map(product, GetAllProductsResponse.class)).
                 collect(Collectors.toList());
 
         return responses;
     }
+     List<Product> filterProductsByStatus(boolean includeStatus){
+        if(includeStatus){
+            return repository.findAll();
+        }
+        return repository.findAllByStatusIsNot(Status.UNAVAILABLE);
+
+     }
 
     @Override
     public GetProductResponse getById(int id) {
@@ -80,6 +88,12 @@ public class ProductManager implements ProductService {
         repository.deleteById(id);
     }
 
+    @Override
+    public void changeStatus(int productId, Status status) {
+        Product product=repository.findById(productId).orElseThrow();
+        product.setStatus(status);
+        repository.save(product);
+    }
 
 
 }

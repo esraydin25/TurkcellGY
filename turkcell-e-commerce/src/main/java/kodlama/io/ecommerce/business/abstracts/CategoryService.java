@@ -1,7 +1,8 @@
 package kodlama.io.ecommerce.business.abstracts;
 
-import kodlama.io.ecommerce.business.dto.response.create.request.create.CreateCategoryRequest;
-import kodlama.io.ecommerce.business.dto.response.create.request.update.UpdateCategoryRequest;
+import kodlama.io.ecommerce.business.dto.request.create.CreateCategoryRequest;
+
+import kodlama.io.ecommerce.business.dto.request.update.UpdateCategoryRequest;
 import kodlama.io.ecommerce.business.dto.response.create.CreateCategoryResponse;
 
 import kodlama.io.ecommerce.business.dto.response.get.GetAllCategoriesResponse;

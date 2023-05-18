@@ -28,7 +28,6 @@ public class Product {
     private int quantity;
     private double unitPrice;
     private String description;
-
     @Enumerated(EnumType.STRING)
     private Status status;
 
