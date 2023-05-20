@@ -12,3 +12,4 @@ public class KafkaProducerConfig {
         return new KafkaProducer(template);
     }
 }
+
