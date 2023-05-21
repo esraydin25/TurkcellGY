@@ -19,12 +19,10 @@ public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private double totalPrice;
     private LocalDate createdAt;
 
-
-    @OneToMany(mappedBy = "sale")
-    private List<Order> orders;
+    @OneToMany
+    private List<Product> products;
 
 }
