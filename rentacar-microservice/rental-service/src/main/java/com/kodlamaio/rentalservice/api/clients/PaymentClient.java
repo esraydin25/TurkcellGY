@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@FeignClient(name="payment-service",fallback = CarClientFallBack.class)
+@FeignClient(name="payment-service",fallback = PaymentClientFallBack.class)
 public interface PaymentClient {
     @PostMapping(value = "/api/payments/check-payment-completed")
     ClientResponse checkIfPaymentCompleted(@RequestBody CreateRentalPaymentRequest request);
