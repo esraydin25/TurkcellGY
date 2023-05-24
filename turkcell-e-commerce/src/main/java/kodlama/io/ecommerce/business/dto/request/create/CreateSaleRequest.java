@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateSaleRequest {
-    @NotNull
+
     private List<Integer> productIds;
     private PaymentRequest paymentRequest;
 }

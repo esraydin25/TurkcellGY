@@ -5,18 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllSalesResponse {
+public class GetAllInvoicesResponse {
     private int id;
-    private List<Integer> productIds;
+    private String cardHolder;
+    private String productDescription;
     private double totalPrice;
-    private LocalDateTime createdAt;
-
+    private LocalDateTime saleDate;
 }

@@ -24,11 +24,9 @@ public class SaleBusinessRules {
     }
     public void checkIfProductExistsByQuantity(int productId){
         int amount=service.getById(productId).getQuantity();
-        if(amount>=1){
-            service.changeQuantity(productId);
-        }
-        else{
+        if(amount<1){
             throw new RuntimeException("Ürün stokta yok");
+
         }
     }
 

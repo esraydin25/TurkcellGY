@@ -18,5 +18,7 @@ public interface ProductService {
     UpdateProductResponse update(int id, UpdateProductRequest request);
     void delete(int id);
     void changeStatus(int productId, Status status);
+    void changeQuantity(int productId);
+
 
 }
