@@ -76,7 +76,6 @@ public class ProductManager implements ProductService {
         rules.validateProduct(request.getDescription(),request.getUnitPrice(),request.getQuantity());
         Product product=mapper.map(request,Product.class);
         product.setId(id);
-        //TODO : ÜRÜNÜ TEKRAR AVAILABLE CEK
         repository.save(product);
         UpdateProductResponse response=mapper.map(product,UpdateProductResponse.class);
 
@@ -97,7 +96,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public void changeQuantity(int productId) {
+    public void changeQuantity(int productId) { //product stock update after sale
         Product product=repository.findById(productId).orElseThrow();
         int amount=product.getQuantity();
         product.setQuantity(--amount);

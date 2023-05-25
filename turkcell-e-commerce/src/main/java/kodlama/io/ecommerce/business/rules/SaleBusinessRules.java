@@ -1,6 +1,8 @@
 package kodlama.io.ecommerce.business.rules;
 
 import kodlama.io.ecommerce.business.abstracts.ProductService;
+import kodlama.io.ecommerce.common.constants.Messages;
+import kodlama.io.ecommerce.core.exceptions.BusinessException;
 import kodlama.io.ecommerce.entities.enums.Status;
 import kodlama.io.ecommerce.repository.SaleRepository;
 import lombok.AllArgsConstructor;
@@ -14,18 +16,18 @@ public class SaleBusinessRules {
 
     public void checkIfSaleExistsById(int id){
         if(!repository.existsById(id)){
-            throw new RuntimeException("Sale_Not_Exists");
+            throw new BusinessException(Messages.Sale.NotExists);
         }
     }
     public void checkIfProductExistsByStatus(int productId){
         if(Status.UNAVAILABLE.equals(service.getById(productId).getStatus())){
-            throw new RuntimeException("Product_Unavaılable");
+            throw new BusinessException(Messages.Sale.ProductNotExists);
         }
     }
     public void checkIfProductExistsByQuantity(int productId){
         int amount=service.getById(productId).getQuantity();
         if(amount<1){
-            throw new RuntimeException("Ürün stokta yok");
+            throw new BusinessException(Messages.Sale.NotStock);
 
         }
     }

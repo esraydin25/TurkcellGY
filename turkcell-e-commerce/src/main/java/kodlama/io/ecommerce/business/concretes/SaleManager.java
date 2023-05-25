@@ -75,7 +75,6 @@ public class SaleManager implements SaleService {
         sale.setId(0);
         sale.setCreatedAt(LocalDateTime.now());
         sale.setTotalPrice(totalPrice);
-        sale.setProducts(setSaleProductIds(productIds));
         
         //payment created
         CreateSalePaymentRequest salePaymentRequest=new CreateSalePaymentRequest();
@@ -115,17 +114,10 @@ public class SaleManager implements SaleService {
         rules.checkIfSaleExistsById(id);
         repository.deleteById(id);
     }
-    private void changeProductQuantity(List<Integer> productIds) {
+    private void changeProductQuantity(List<Integer> productIds) { //stock update
         for(Integer productId: productIds) {
             productService.changeQuantity(productId);
         }
     }
-    private List<Product> setSaleProductIds(List<Integer> productIds) {
-        List<Product> products=new ArrayList<>();
-        for(Integer productId: productIds){
-            Product product=mapper.map(productService.getById(productId),Product.class);
-            products.add(product);
-        }
-        return products;
-    }
+
 }

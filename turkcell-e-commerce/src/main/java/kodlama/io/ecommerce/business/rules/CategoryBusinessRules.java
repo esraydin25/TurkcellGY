@@ -1,5 +1,7 @@
 package kodlama.io.ecommerce.business.rules;
 
+import kodlama.io.ecommerce.common.constants.Messages;
+import kodlama.io.ecommerce.core.exceptions.BusinessException;
 import kodlama.io.ecommerce.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,13 +13,13 @@ public class CategoryBusinessRules {
 
     public void  checkIfCategoryExistsById(int id){
         if(!repository.existsById(id)){
-            throw new RuntimeException("id bulunamadı.");
+            throw new BusinessException(Messages.Category.NotExists);
         }
     }
 
     public void checkIfCategoryExistsByName(String name){
         if(repository.existsByNameIgnoreCase(name)){
-            throw  new RuntimeException("Böyle bir categori mevcuttur.");
+            throw  new BusinessException(Messages.Category.Exists);
         }
     }
 

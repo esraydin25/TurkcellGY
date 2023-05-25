@@ -1,5 +1,7 @@
 package kodlama.io.ecommerce.business.rules;
 
+import kodlama.io.ecommerce.common.constants.Messages;
+import kodlama.io.ecommerce.core.exceptions.BusinessException;
 import kodlama.io.ecommerce.entities.Product;
 import kodlama.io.ecommerce.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -12,7 +14,7 @@ public class ProductBusinessRules {
 
     public  void checkIfProductExistsById(int id){
         if(!repository.existsById(id)) {
-            throw new RuntimeException("id sistemde mevcut");
+            throw new BusinessException(Messages.Product.NotExists);
         }
     }
     public void validateProduct(String description,double unitPrice,int quantity) {
@@ -22,15 +24,15 @@ public class ProductBusinessRules {
     }
     public void checkIfDescriptionLengthValid(String description) {
         if (description.length() < 10 || description.length() > 50)
-            throw new IllegalArgumentException("Description length must be between 10 and 50 characters.");
+            throw new BusinessException(Messages.Product.DescriptionLengthValid);
     }
 
     public void checkIfUnitPriceValid(double unitPrice) {
         if (unitPrice <= 0)
-            throw new IllegalArgumentException("Price cannot be less than or equal to zero.");
+            throw new BusinessException(Messages.Product.UnitPriceValid);
     }
 
     public void checkIfQuantityValid(int quantity) {
-        if (quantity < 0) throw new IllegalArgumentException("Quantity cannot be less than zero.");
+        if (quantity < 0) throw new BusinessException(Messages.Product.QuantityValid);
     }
 }

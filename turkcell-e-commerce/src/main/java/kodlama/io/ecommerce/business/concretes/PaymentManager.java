@@ -59,7 +59,6 @@ public class PaymentManager implements PaymentService {
     @Override
     public UpdatePaymentResponse update(int id, UpdatePaymentRequest request) {
         rules.checkIfExistsById(id);
-        rules.checkIfCardExistsByNumber(request.getCardNumber());
         Payment payment=mapper.map(request,Payment.class);
         payment.setId(id);
         repository.save(payment);

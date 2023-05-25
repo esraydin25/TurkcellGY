@@ -1,5 +1,7 @@
 package kodlama.io.ecommerce.business.rules;
 
+import kodlama.io.ecommerce.common.constants.Messages;
+import kodlama.io.ecommerce.core.exceptions.BusinessException;
 import kodlama.io.ecommerce.repository.InvoiceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,7 @@ public class InvoiceBusinessRules {
 
     public void checkIfExistsById(int id){
         if(!repository.existsById(id)){
-            throw new RuntimeException("Invoice not found");
+            throw new BusinessException(Messages.Invoice.NotExists);
         }
     }
 }
