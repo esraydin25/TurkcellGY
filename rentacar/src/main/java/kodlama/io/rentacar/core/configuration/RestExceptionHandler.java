@@ -37,8 +37,6 @@ public class RestExceptionHandler {
         return new ExceptionResult<>(ExceptionTypes.Exception.Validation,exception.getMessage());
     }
 
-
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) //422
     public ExceptionResult<Object> handleBusinessException(BusinessException exception){
