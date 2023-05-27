@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -22,6 +23,6 @@ public class UpdateRentalRequest {
     @Min(1)
     private int rentedForDays;
     @NotNull
-    private LocalDate rentedAt;
+    private LocalDateTime rentedAt;
 
 }
