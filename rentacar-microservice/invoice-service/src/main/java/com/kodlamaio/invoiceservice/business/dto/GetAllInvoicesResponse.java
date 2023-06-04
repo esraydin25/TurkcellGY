@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,6 +21,5 @@ public class GetAllInvoicesResponse {
     private double dailyPrice;
     private int rentedForDays;
     private double totalPrice;
-    private LocalDateTime rentedAte;
-
+    private LocalDateTime rentedAt;
 }

@@ -15,12 +15,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateInvoiceRequest {
-
-    @NotBlank(message = "Alan boş geçilemez")
+    @NotBlank
     private String cardHolder;
-    @NotBlank(message = "Alan boş geçilemez")
+    @NotBlank
     private String modelName;
-    @NotBlank(message = "Alan boş geçilemez")
+    @NotBlank
     private String brandName;
     @NotNull
     private String plate;
@@ -30,6 +29,5 @@ public class UpdateInvoiceRequest {
     private double dailyPrice;
     @Min(0)
     private int rentedForDays;
-    private LocalDateTime rentedAte;
-
+    private LocalDateTime rentedAt;
 }

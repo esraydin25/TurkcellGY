@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateInvoiceResponse {
-    private String  id;
+    private String id;
     private String plate;
     private String cardHolder;
     private String modelName;
@@ -21,6 +21,5 @@ public class UpdateInvoiceResponse {
     private double dailyPrice;
     private int rentedForDays;
     private double totalPrice;
-    private LocalDateTime rentedAte;
-
+    private LocalDateTime rentedAt;
 }

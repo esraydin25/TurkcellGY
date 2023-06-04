@@ -20,7 +20,6 @@ import com.kodlamaio.rentalservice.repository.RentalRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -72,7 +71,7 @@ public class RentalManager implements RentalService {
         repository.save(rental);
 
         GetCarResponse getCarResponse = carClient.getRentalCarById(rental.getCarId());
-        sendKafkaRentalCreatedEvent(getCarResponse,request, rental.getRentedAt());
+        sendKafkaRentalCreatedEvent(getCarResponse,request, rental);
 
 
         var response = mapper.forResponse().map(rental, CreateRentalResponse.class);
@@ -100,12 +99,12 @@ public class RentalManager implements RentalService {
         repository.deleteById(id);
 
     }
-    private void sendKafkaRentalCreatedEvent(GetCarResponse getCarResponse, CreateRentalRequest request, LocalDateTime rentedAt) {
+    private void sendKafkaRentalCreatedEvent(GetCarResponse getCarResponse, CreateRentalRequest request, Rental rental) {
         RentalCreatedEvent event = new RentalCreatedEvent();
         event.setCarId(request.getCarId());
         event.setCardHolder(request.getPaymentRequest().getCardHolder());
         event.setTotalPrice(request.getDailyPrice() * request.getRentedForDays());
-        event.setRentedAt(rentedAt);
+        event.setRentedAt(rental.getRentedAt());
         event.setPlate(getCarResponse.getPlate());
         event.setBrandName(getCarResponse.getModelBrandName());
         event.setModelName(getCarResponse.getModelName());

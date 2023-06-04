@@ -24,6 +24,6 @@ public class RentalConsumer {
 
         var invoice =  mapper.map(event, CreateInvoiceRequest.class);
         service.add(invoice);
-        log.info("Rental created event consumed {}", event);
+        log.info("Rental  invoice created event consumed {}", event);
     }
 }

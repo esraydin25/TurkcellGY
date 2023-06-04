@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -29,6 +30,5 @@ public class CreateInvoiceRequest {
     private double dailyPrice;
     @Min(0)
     private int rentedForDays;
-    private LocalDateTime rentedAte;
-
+    private LocalDate rentedAt;
 }

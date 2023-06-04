@@ -21,8 +21,5 @@ public class CreateInvoiceResponse {
     private double dailyPrice;
     private int rentedForDays;
     private double totalPrice;
-    private LocalDateTime rentedAte;
-
-
+    private LocalDateTime rentedAt;
 }
-
