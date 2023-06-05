@@ -19,10 +19,10 @@ import java.util.List;
 public class FiltersController {
     private final FilterService service;
 
-   @PostConstruct public void createDb(){
-       System.err.println("PostConstructs çalıştı");
-       service.add(new Filter());
-   }
+//   @PostConstruct public void createDb(){
+//       System.err.println("PostConstructs çalıştı");
+//       service.add(new Filter());
+//   }
     @GetMapping
     public List<GetAllFiltersResponse> getAll(){
         return service.getAll();

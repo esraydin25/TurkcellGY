@@ -21,6 +21,32 @@ services:
     volumes:
       - .:/opt/jboss/keycloak/imports
 
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitor-net
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - grafana-config:/etc/grafana
+    networks:
+      - monitor-net
+
 
   mongodb:
     container_name: turkcell-filterdb
@@ -64,6 +90,9 @@ volumes:
   kafka_data:
   mongodb_data:
   mysqldb_data:
+  grafana-data:
+  grafana-config:
 
 networks:
   elastic:
+  monitor-net:
