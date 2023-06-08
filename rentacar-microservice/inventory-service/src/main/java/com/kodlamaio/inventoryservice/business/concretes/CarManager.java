@@ -63,8 +63,6 @@ public class CarManager implements CarService {
         return response;
     }
 
-
-
     @Override
     public UpdateCarResponse update(UUID id, UpdateCarRequest request) {
         rules.checkIfCarExists(id);
